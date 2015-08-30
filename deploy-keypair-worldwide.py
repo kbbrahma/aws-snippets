@@ -19,10 +19,9 @@ args = utils.args.get({
 	})
 AKEY, SKEY = utils.credentials.get(args.credentials)
 
-print args.keypair_path
-
 def main():
 	"""
+	Deploy the passed key pair to all regions the credentials have access to
 	"""
 	keypairs = []
 	if args.keypair_path:
