@@ -60,4 +60,4 @@ target/
 .DS_Store
 
 # Security
-credentials*
+credentials/*
