@@ -11,18 +11,17 @@ import boto.ec2
 import utils.args
 import utils.credentials
 
-# setup
-args = utils.args.get([
-	{ 'short': '-n', 'long': '--keypair-name', 'help': "The name of the key pair to import", 'required': True },
-	{ 'short': '-p', 'long': '--keypair-path', 'help': "The path of the file containing the public key of the key pair you want to distribute"},
-	{ 'short': '-s', 'long': '--keypair-string', 'help': "The string for the public key of the key pair your want to distribute. This is handy if you're 'cat'-ing the output of ~/.ssh/authorized_keys"}
-	])
-AKEY, SKEY = utils.credentials.get(args.credentials)
-
-def main():
+def main(options=None):
 	"""
 	Deploy the passed key pair to all regions the credentials have access to
 	"""
+	args = utils.args.get([
+		{ 'short': '-n', 'long': '--keypair-name', 'help': "The name of the key pair to import", 'required': True },
+		{ 'short': '-p', 'long': '--keypair-path', 'help': "The path of the file containing the public key of the key pair you want to distribute"},
+		{ 'short': '-s', 'long': '--keypair-string', 'help': "The string for the public key of the key pair your want to distribute. This is handy if you're 'cat'-ing the output of ~/.ssh/authorized_keys"}
+		], options)
+	AKEY, SKEY = utils.credentials.get(args.credentials)
+
 	keypairs = []
 	if args.keypair_path:
 		try:

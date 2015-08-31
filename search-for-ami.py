@@ -11,17 +11,16 @@ import boto.ec2
 import utils.args
 import utils.credentials
 
-# setup
-args = utils.args.get([
-	{ 'short': '-s', 'long': '--search-for', 'help': "String of partial of the AMI to search for", 'required': True },
-	{ 'short': '-r', 'long': '--region', 'help': "Which region(s) to search in. 'all' is a valid selection", 'required': False, 'default': [], 'action': 'append', 'required': True },
-	])
-AKEY, SKEY = utils.credentials.get(args.credentials)
-
-def main():
+def main(options=None):
 	"""
 	Find the AMI ID for each region for the specified AWS maintained AMI
 	"""
+	args = utils.args.get([
+		{ 'short': '-s', 'long': '--search-for', 'help': "String of partial of the AMI to search for", 'required': True },
+		{ 'short': '-r', 'long': '--region', 'help': "Which region(s) to search in. 'all' is a valid selection", 'required': False, 'default': [], 'action': 'append', 'required': True },
+		], options)
+	AKEY, SKEY = utils.credentials.get(args.credentials)
+
 	for region in boto.ec2.regions():
 		# make sure we're supposed to scan this region
 		if not region.name in args.region and not 'all' in args.region: continue

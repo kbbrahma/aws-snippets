@@ -7,7 +7,7 @@ import argparse
 
 # project libraries
 
-def get(args):
+def get(args, options=None):
 	"""
 	Build an argument parser with the specified arguments
 	and return the results
@@ -55,4 +55,10 @@ def get(args):
 	if not required_arg_is_present['credentials']:
 		parser.add_argument('-c', '--credentials', help="A .json document containing at least 'access_key' and 'secret_key' of the credentials to authenticate as for the current script")
 
-	return parser.parse_args()
+	results = None
+	if options:
+		results = parser.parse_args(options)
+	else:
+		results = parser.parse_args()
+
+	return results
