@@ -12,11 +12,11 @@ import utils.args
 import utils.credentials
 
 # setup
-args = utils.args.get({
-	'key_name': { 'short': '-n', 'long': '--keypair-name', 'help': "The name of the key pair to import", 'required': True },
-	'key_path': { 'short': '-p', 'long': '--keypair-path', 'help': "The path of the file containing the public key of the key pair you want to distribute"},
-	'key_string': { 'short': '-s', 'long': '--keypair-string', 'help': "The string for the public key of the key pair your want to distribute. This is handy if you're 'cat'-ing the output of ~/.ssh/authorized_keys"}
-	})
+args = utils.args.get([
+	{ 'short': '-n', 'long': '--keypair-name', 'help': "The name of the key pair to import", 'required': True },
+	{ 'short': '-p', 'long': '--keypair-path', 'help': "The path of the file containing the public key of the key pair you want to distribute"},
+	{ 'short': '-s', 'long': '--keypair-string', 'help': "The string for the public key of the key pair your want to distribute. This is handy if you're 'cat'-ing the output of ~/.ssh/authorized_keys"}
+	])
 AKEY, SKEY = utils.credentials.get(args.credentials)
 
 def main():

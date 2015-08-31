@@ -14,16 +14,24 @@ def get(args):
 	"""
 	parser = argparse.ArgumentParser()
 
-	for k, v in args.items():
+	required_arg_is_present = {
+		'credentials': False,
+	}
+
+	for v in args:
 		short_form = None
 		long_form = None
 
 		if v.has_key('short'):
 			short_form = v['short']
+			if short_form.strip('-') in required_arg_is_present.keys():
+				required_arg_is_present[short_form.strip('-')] = True
 			v.pop('short', None) # remove it from the dict
 
 		if v.has_key('long'):
 			long_form = v['long']
+			if long_form.strip('-') in required_arg_is_present.keys():
+				required_arg_is_present[long_form.strip('-')] = True
 			v.pop('long', None) # remove it from the dict
 
 		if short_form and long_form:
@@ -44,7 +52,7 @@ def get(args):
 				)
 
 	# required arguments	
-	if not args.has_key('credentials'):
+	if not required_arg_is_present['credentials']:
 		parser.add_argument('-c', '--credentials', help="A .json document containing at least 'access_key' and 'secret_key' of the credentials to authenticate as for the current script")
 
 	return parser.parse_args()
