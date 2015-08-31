@@ -21,6 +21,8 @@ def main(options=None):
 		], options)
 	AKEY, SKEY = utils.credentials.get(args.credentials)
 
+	results = []
+
 	for region in boto.ec2.regions():
 		# make sure we're supposed to scan this region
 		if not region.name in args.region and not 'all' in args.region: continue
@@ -41,6 +43,7 @@ def main(options=None):
 				try:
 					for i in connection.get_all_images(owners='amazon', filters=filters):
 						print '{}\t{}\t{}\t'.format(region.name, i.id, i.name)
+						results.append({ 'region': region.name, 'ami_id': i.id, 'ami_name': i.name })
 				except Exception, err:
 					if "401 Unauthorized" in "{}".format(err):
 						print "Not authorized to search in the [{}] region".format(region.name)
