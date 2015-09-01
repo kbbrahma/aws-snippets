@@ -21,6 +21,9 @@ def main(options=None):
 		], options)
 	AKEY, SKEY = utils.credentials.get(args.credentials)
 
-	#amis = search_for_ami.main('-c {} -s "amzn-ami-hvm*ebs" -r {}'.format(args.credentials))
+	args_to_pass = '-c {} -s amzn-ami-hvm*ebs -r {}'.format(args.credentials, " -r ".join(args.region))
+	print args_to_pass
+	amis = search_for_ami.main(args_to_pass)
+	print amis
 
 if __name__ == '__main__': main()

@@ -16,4 +16,10 @@ AMI IDs are specific to a region. That makes is a bit of a hassle to find the sa
 
 ## [start_instances.py](start_instances.py)
 
-Start a number of demo instances
+**Not working yet**
+
+Start a number of demo instances.
+
+## [what_is_running_in_ec2.py](what_is_running_in_ec2.py)
+
+Query the specified regions for the current EC2 inventory.
